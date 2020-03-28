@@ -1,0 +1,25 @@
+#|Ejercicio #3
+Implemente la función aplanar que recibe una lista de átomos y si la lista tiene listas
+anidadas, entonces crea y retorna una lista con todos los elementos de la listas y sus
+respectivas sublistas.
+Por ejemplo
+(1,2,r,t,(4,5,t) (7,8,(a,(b,(c,d))),9)) -> (1,2,r,t,4,5,t,7,8,a,b,c,d,9)|#
+
+(define complexlist '(1 2 r t (4 5 t) (7 8 (a (b (c d))) 9)))
+(define simplelist '(1 2 3 4))
+
+(define head-list-checker (lambda (d)
+            (if (list? (car d))
+            #t
+            #f
+            )))
+
+(define aplana (lambda (lista)
+              (if (null? lista)
+              '()
+              (if (head-list-checker lista)
+              (append (aplana (car lista)) (aplana(cdr lista)))
+              (append (list(car lista)) (aplana(cdr lista))
+              )
+              ))))
+(aplana complexlist)
