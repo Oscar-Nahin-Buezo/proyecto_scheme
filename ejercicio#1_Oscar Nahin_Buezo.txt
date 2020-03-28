@@ -1,0 +1,34 @@
+#lang racket
+;Necesitamos ordenar la lista, en este caso de manera ascendente
+(define (eliminar n lista)
+(cond
+  [(empty? lista) empty]
+  [(= n (car lista))(cdr lista)]
+  [else (cons(car lista) (eliminar n (cdr lista)))]))
+
+(define (elemento_menor lista)
+  (cond
+    [(empty? lista) empty]
+    [(empty? (cdr lista))(car lista)]
+    [(<(car lista)(car(cdr lista))) (elemento_menor(cons(car lista)(cddr lista)))]
+    [else (elemento_menor (cdr lista))]))
+
+(define (ordenar lista)
+(cond
+  [(empty? lista) empty]
+  [else (cons (elemento_menor lista) (ordenar (eliminar (elemento_menor lista) lista)))]))
+  
+(define suma_de_lista
+    (lambda (x)
+     (if (null? x)
+        (sumar lista)
+        (if (integer? (car x))
+            (suma_de_lista (cdr x))
+            "No todos los elementos son enteros"))))
+
+(define (sumar lista)
+  (define largo (length lista))
+  (+ (list-ref (ordenar lista)(- largo 1))(list-ref (ordenar lista)(- largo 2)))
+ )
+(define lista(list 3 5 56 89 6 7))
+(suma_de_lista lista)
