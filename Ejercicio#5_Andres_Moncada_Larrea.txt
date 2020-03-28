@@ -2,6 +2,8 @@
 (3 (6 (14 nil nil) (8 nil nil)) (15 nil (12 (6 nil nil) nil)))
 Implemente una funciónque recibe una lista con la forma de un árbole imprimalos elementos del árbolen orden.
 |#
+(display "*****Ejercicio 5 parte 1*****")
+(newline)
 (display "Arbol:")
 (newline)
 (define arb '(3 (6 (14 nil nil) (8 nil nil))(15 nil (12 (6 nil nil) nil))))
@@ -26,3 +28,61 @@ Implemente una funciónque recibe una lista con la forma de un árbole imprimalo
   )
 )
 (displista arb)
+(newline)
+(newline)
+(newline)
+(newline)
+(newline)
+#|Implemente una función que determine si el árboles un árbolbinario de búsqueda
+|#
+(display "*****Ejercicio 5 parte 2*****")
+(newline)
+(display "Como no se especificó en el inciso, este arbol no usa valores nulos")
+(newline)
+(display "Arbol de prueba 1: BST")
+(newline)
+(define bArb1 '(4 (2 1 3) (6 5 7)))
+(display bArb1)
+(newline)
+(display "Arbol de prueba 2: no BST")
+(newline)
+(define bArb2 '(4 (2 3 1) (6 5 7)))
+(display bArb2)
+(newline)
+(define (compararIzq n i)
+    (< i n)
+)
+
+(define (compararDer n d)
+    (cond
+        ((list? d) (< n (car d)))
+        (else (< n d))
+    )
+)
+
+(define (esBst l2)
+    (cond 
+        ((list? l2) 
+            (cond
+                ((not (null? (cdr l2)))
+                    (cond
+                        ((list? (car (cdr l2)))
+                            (and (esBst (car (cdr l2))) (esBst (cdr (cdr l2))) (compararIzq (car l2) (car (car (cdr l2)))) (compararDer (car l2) (car (cdr (cdr l2)))))
+                        )
+                        (else 
+                            (and (compararIzq (car l2) (car(cdr l2))) (compararDer (car l2) (cdr (cdr l2))))
+                        )
+                    )
+                )
+                (else #t)
+            )
+        )
+        (else #f)
+    )
+)
+(display "Arbol 1: ")
+(display (esBst bArb1))
+(newline)
+
+(display "Arbol 2: ")
+(display (esBst bArb2))
