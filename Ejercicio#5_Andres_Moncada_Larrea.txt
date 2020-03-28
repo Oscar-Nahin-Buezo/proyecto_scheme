@@ -1,0 +1,28 @@
+#|Dado un árboldefinido a travésde una lista de la siguiente manera:
+(3 (6 (14 nil nil) (8 nil nil)) (15 nil (12 (6 nil nil) nil)))
+Implemente una funciónque recibe una lista con la forma de un árbole imprimalos elementos del árbolen orden.
+|#
+(display "Arbol:")
+(newline)
+(define arb '(3 (6 (14 nil nil) (8 nil nil))(15 nil (12 (6 nil nil) nil))))
+(display arb)
+(newline)
+(display "Elementos: ")
+(newline)
+(define (displista l1) 
+  (cond
+    ((null? l1) (display "vacio"))
+    ((not (list? l1)) (display l1) (display " "))
+    ((equal? l1 'nil) (display "nil4 "))
+    (else
+        (cond
+            ((list? (car l1)) (displista (car l1)));
+            (else (display (car l1)) (display " "))
+        )
+        (cond
+            ((not (null? (cdr l1))) (displista (cdr l1)))
+        )
+    )
+  )
+)
+(displista arb)
